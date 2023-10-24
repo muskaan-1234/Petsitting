@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <title> Client Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/caretaker.css">
+    <script src="js/caretaker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+</head>
+<script>
+     $(document).ready(function () {
+            $("#change-pass").click(function () {
+        //  alert();
+
+        var PEmail = $("#Form-email").val();
+        var Oldpass = $("#Form-opass").val();
+        var Newpass = $("#Form-npass").val();
+
+        var obj = {
+          type: "get",
+          url: "/changepassword",
+          data: {
+            Email: PEmail,
+            oldpass: Oldpass,
+            newpass: Newpass
+
+          }
+        }
+
+        $.ajax(obj).done(function (respJsonAry) {
+
+          alert(respJsonAry);
+        }).fail(function (kuchErr) {
+          alert(kuchErr.toString());
+        });
+
+      });
+        });
+  </script>
+
+<body onload="showActiveUser1();">
+    <nav class="navbar navbar-expand-lg bg-danger">
+        <div class="container-fluid" style="font-weight:bolder;">
+            <a class="navbar-brand text-white" href="#">
+                <centre>CARE WARE</centre>
+            </a>
+            <span id="spanActive1">*</span>
+        </div>
+    </nav>
+    <!--cards-->
+    <div class="container">
+        <div class="row" style="margin-top: 2%;">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="project-pics/cat pic.petcare.jpg" class="card-img-top" alt="..." ">
+                    <div class=" card-body">
+                    <input type="button" class="btn btn-primary" id="btndetails" value="Details"  style="height:70%;width:100%;">
+                </div>
+            </div>
+        </div>
+        <!---second card-->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="project-pics/setting.image.1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <input type="button" class="btn btn-primary" id="btnset" value="Setting" data-bs-toggle="modal"
+                    data-bs-target="#changepwd" style="height:fit-content;width:105%;">
+                </div>
+            </div>
+        </div>
+        <!---third card-->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="project-pics/logout.image.1.jpg" class="card-img-top" alt="...">
+                <input type="button" class="btn btn-primary" id="btnlog" value="Logout" onclick="doLog();">
+            </div>
+        </div>
+    </div>
+    </div>
+    <!---change password-->
+    <form>
+        <div class="modal fade" id="changepwd" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">Change Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+  
+              <div class="modal-body">
+                <div class="md-form mb-4">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                  <input type="email" id="Form-email" name="emailpass" class="form-control validate">
+                  <div id="err-Email" class=""></div>
+                </div>
+  
+                <div class="md-form mb-4">
+                  <i class="fas fa-lock prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right" for="defaultForm-pass">Old Password</label>
+                  <input type="password" id="Form-opass" name="opass" class="form-control validate">
+                  <div id="err-Pass" class=""></div>
+                </div>
+  
+                <div class="md-form mb-4">
+                  <i class="fas fa-lock prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right" for="defaultForm-pass">New Password</label>
+                  <input type="password" id="Form-npass" name="npass" class="form-control validate">
+                  <div id="err-Pass" class=""></div>
+                </div>
+  
+  
+                <div style="padding:10px 0px 10px">
+                  <center>
+                    <button type="button" class="btn btn-outline-success mt-4" id="change-pass">Change Password </button>
+                  </center>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+/* Custom Styles for Care Taker Profile Page */
+
+/* Center the page title */
+.row.bg-primary {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style the "Search" button */
+#btnSea {
+    margin-top: 5%;
+}
+
+/* Style the form labels */
+.form-label {
+    font-weight: bold;
+}
+
+/* Style the form inputs */
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the profile picture */
+#prev {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* Style the "Save" and "Update" buttons */
+.btn-primary {
+    margin-top: 10px;
+}

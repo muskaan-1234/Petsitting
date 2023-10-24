@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        var module = angular.module("myModule", []);
+        module.controller("myController", function ($scope, $http) {
+            $scope.jsonAry = [];
+            $scope.doFetchAll = function () {
+                
+                $http.get("/show-users").then(fxOk, fxNotOk);
+                function fxOk(response) {
+                    // alert(response.data);
+                    $scope.jsonAry=response.data;
+                }
+                function fxNotOk(response) {
+                    alert("Error=" + response.data);
+                }
+            }
+            $scope.doblock=function(Email){
+                alert();
+            $http.get("/block-user?ServerEmailid=" + Email).then(fxOk, fxNotOk);
+            function fxOk(response){
+                alert("user blocked successfully");
+            }            
+            function fxNotOk(response){
+                alert("Error=" + response.data);
+            }
+        }
+
+        $scope.doresume=function(Email){
+            alert();
+            $http.get("/resume-user?Serveremailid=" + Email).then(fxOk,fxNotOk);
+            function fxOk(response){
+                alert("user resumed successfully");
+            }
+            function fxNotOk(response){
+                alert("Error=" + response.data);
+            }
+        }
+        })
+    </script>
+</head>
+
+<body ng-app="myModule" ng-controller="myController">
+
+
+    <center ng-init="doFetchAll(this)"></center>
+
+
+    <center>
+        
+        <input type="button" ng-click="doFetchAll();" value="Show Users">
+        <br><br>
+        <table width="500" border="1">
+            <tr>
+                <th>Sr No.</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>User Type</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="obj in jsonAry">
+                <td>{{obj.index}}</td>
+                <td>{{obj.emailid}}</td>
+                <td>{{obj.pwd}}</td>
+                <td>{{obj.utype}}</td>
+                <td>{{obj.status}}</td>
+                <td>
+                    <input type="button" value="Block" ng-click="doblock(obj.emailid);">
+                    <input type="button" value="Resume" ng-click="doresume(obj.emailid);">
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+
+</html>

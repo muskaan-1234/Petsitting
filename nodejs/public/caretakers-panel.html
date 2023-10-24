@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="js/angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        var module = angular.module("myModule", []);
+        module.controller("myController", function ($scope, $http) {
+            $scope.jsonAry = [];
+            $scope.doFetchAll = function () {
+                
+                $http.get("/show-all-Users").then(fxOk, fxNotOk);
+                alert();
+                function fxOk(response) {
+                    alert();
+                    // alert(response.data);
+                    $scope.jsonAry=response.data;
+                }
+                function fxNotOk(response) {
+                    alert("Error=" + response.data);
+                }
+            }
+            $scope.showcareDetails = function (person) 
+            {
+                var detailsMessage = "Email: " + person.emailid + "\n";
+                detailsMessage += "Nmae: " + person.name + "\n";
+                detailsMessage += "Contact: " + person.contact + "\n";
+                detailsMessage += "State: " + person.state + "\n";
+                detailsMessage += "City: " + person.city + "\n";
+                detailsMessage += "Selected Pets: " + person.selpets + "\n";
+                alert(detailsMessage);
+            };
+
+        })
+    </script>
+</head>
+
+<body ng-app="myModule" ng-controller="myController">
+    <center>
+        <input type="button" ng-click="doFetchAll();" value="Show Users">
+        <br>
+        <table width="500" border="1">
+            <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Contatc</th>
+                <th>Firm/Location address</th>
+                <th>Website</th>
+                <th>City</th>
+                <th>Pincode</th>
+                <th>State</th>
+                <th>Selected Pets</th>
+                <th>Ppic</th>
+            </tr>
+            <tr ng-repeat="obj in jsonAry">
+                <td>{{obj.emailid}}</td>
+                <td>{{obj.name}}</td>
+                <td>{{obj.contact}}</td>
+                <td>{{obj.address}}</td>
+                <td>{{obj.website}}</td>
+                <td>{{obj.city}}</td>
+                <td>{{obj.pin}}</td>
+                <td>{{obj.state}}</td>
+                <td>{{obj.selpets}}</td>
+                <td>{{obj.ppic}}</td>
+                <td>
+                    <input type="button" value="Block" ng-click="doDelete(obj.emailid);">
+                    <input type="button" value="Resume" ng-click="doDelete(obj.emailid);">
+                </td>
+            </tr>
+        </table>
+    </center>
+    <hr>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" ng-repeat="obj in jsonAry">
+                <div class="card">
+                    <img src="uploads/{{obj.ppic}}" class="card-img-top" alt="Picture Here"
+                        style="height:225px;width:209px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{obj.emailid}}</h5>
+                        <p class="card-text">{{obj.name}}</p>
+                        <p class="card-text">{{obj.address}}</p>
+                        <p class="card-text">{{obj.selpets}}</p>
+                        <input type="button" class="btn btn-primary" value="Details" id="details" ng-click="showcareDetails(obj)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
